@@ -5,12 +5,19 @@ import { useSelector, useDispatch } from 'react-redux'
 
 const cart = ({ navigation }) => {
     let list = useSelector((state) => state.CartReducer.list);
-
+    const [total, setTotal] = useState(0.00);
     const dispatch = useDispatch();
     const orderDone = () => {
         dispatch({ type: "CLEAR_CART" });
-        list= []
+        setTotal(0.00);
+        alert("your order has been placed \n Thank you for shopping");
     }
+
+    useEffect(() => {
+        list.forEach(element => {
+            setTotal(total + (element.price * element.Qty));
+        });
+    }, list)
     return (
         <ScrollView>
         
@@ -32,7 +39,7 @@ const cart = ({ navigation }) => {
             })}
                 
                  <View  style={Styles.total}>
-                    {/* <Text style={Styles.text}> Total: {countTotal(Qty, price)} </Text> */}
+                <TextInput value={total}/>
                     <Text style={Styles.text}> Amount </Text>
                 </View>
 

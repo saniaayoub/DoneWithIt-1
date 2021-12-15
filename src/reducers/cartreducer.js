@@ -21,6 +21,7 @@ const CartReducer = (state = initialState, action) => {
                 ...state,
                 list: []
             }
+        
         default: return state;
         // case 'DELETE_FROM_CART':
         //     return {
