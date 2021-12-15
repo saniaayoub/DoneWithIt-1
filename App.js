@@ -14,7 +14,7 @@ import Productdetails from './src/screens/productdetails';
 import { useEffect, useState,useContext, useMemo, useReducer} from 'react';
 import { AuthContext } from './src/screens/context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import loginReducer from './src/Components/loginreducer'
+import loginReducer from './src/reducers/loginreducer'
 
 const loginStack = createStackNavigator();
 

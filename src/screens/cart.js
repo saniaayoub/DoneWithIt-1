@@ -1,38 +1,23 @@
 import React from 'react'
-import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, ScrollView, Image, TouchableOpacity, TextInput } from 'react-native'
 import { useEffect, useState, useReducer } from 'react'
-import CartReducer from '../Components/cartreducer'
-import Products from './Products'
+import { useSelector, useDispatch } from 'react-redux'
 
 const cart = ({ navigation }) => {
-    const initialState = [];
-    const [cartItems, dispatch] = useReducer(CartReducer, initialState);
-   // let {itemID, Qty} = route.params;
-    useEffect(() => {
-        console.log("error")
-        dispatch({ type: "RETRIEVE_LIST" });
-        if (!cartItems)
-        {
-            alert("cart is empty");
-            }
-        console.log("here")
-    },[])
-   
-    const {image, title, price} = Products[1];
-    // const countTotal = () => {
-    //     return Number(Qty) * price;
-    // }
-    // const orderDone = () => {
-    //     alert("your order has been placed");
-    //     navigation.navigate("Home1");
-    // }
+    let list = useSelector((state) => state.CartReducer.list);
 
+    const dispatch = useDispatch();
+    const orderDone = () => {
+        dispatch({ type: "CLEAR_CART" });
+        list= []
+    }
     return (
         <ScrollView>
-            {cartItems.map((elem) => 
+        
+            {list.map((elem) => 
             {
                 return (
-                    <View style={[Styles.card, Styles.cardShadow]}>
+                    <View style={[Styles.card, Styles.cardShadow]} key={elem.id}>
                     <Image source={elem.image}
                     style={Styles.image}
                     resizeMode="contain"/>

@@ -16,15 +16,12 @@ const CartReducer = (state = initialState, action) => {
                     {...item, Qty: Qty}
                 ]
             }
-        
-        case 'RETRIEVE_LIST':
+        case 'CLEAR_CART':
             return {
                 ...state,
-                list: [
-                    ...state.list,
-                ]
+                list: []
             }
-            
+        default: return state;
         // case 'DELETE_FROM_CART':
         //     return {
         //         ...prevState,

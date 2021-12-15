@@ -2,18 +2,16 @@ import React from 'react'
 import { View, Text, ScrollView, Image, Button, StyleSheet } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Products from './Products'
-import {useState, useReducer} from 'react'
-import CartReducer from '../Components/cartreducer';
+import { useState, useReducer } from 'react'
+import {useSelector, useDispatch } from 'react-redux';
+import CartReducer from '../reducers/cartreducer'
 
 
 
 function Productdetails({route, navigation}) {
-    // let cartArrayItem= {
-    //     id: 0,
-    //     quantity: 0
-    // };
+    
+    const dispatch = useDispatch();
     const initialState = [];
-    const [cartItems, dispatch] = useReducer(CartReducer, initialState);
     const [Qty, setQty] = useState(0);
     let {itemID} = route.params;
     const {id, image, title, price, description} = Products[itemID-1];
@@ -64,7 +62,9 @@ function Productdetails({route, navigation}) {
                     />
                 </View>
                  <Text style={Styles.desc}> Quantity: {Qty}</Text>
-                 <Text style={[Styles.button, Styles.btn]} onPress={() => addToCart(id)}>ADD TO CART</Text>
+                <Text style={[Styles.button, Styles.btn]}
+                    onPress={() => dispatch({ type: "ADD_TO_CART", payload: { id: id, Qty: Qty } },
+                    navigation.push("ProductList"))}>ADD TO CART</Text>
                 <Text style={Styles.desc}>{description}</Text>
             </View>
             
