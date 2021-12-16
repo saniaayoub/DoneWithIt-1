@@ -5,14 +5,16 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { createDrawerNavigator } from '@react-navigation/drawer';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 import Profile from './src/screens/Profile';
 import Login from './src/screens/login';
 import Home from './src/screens/Home';
 import cart from './src/screens/cart';
 import Productdetails from './src/screens/productdetails';
-// import DrawerContent from './src/screens/drawercontent';
+import DrawerContent from './src/screens/drawercontent';
+import Header from './src/Components/header';
 import { useEffect, useState,useContext, useMemo, useReducer} from 'react';
-import { AuthContext } from './src/screens/context';
+import { AuthContext } from './src/Components/context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import loginReducer from './src/reducers/loginreducer'
 
@@ -24,17 +26,11 @@ const HomeStack = createStackNavigator();
 
 const Drawer = createDrawerNavigator();
 
-const profileStackScreen = () => {
-  return(<profileStack.Navigator>
-    <profileStack.Screen name="Profile" component={Profile}/>
-  </profileStack.Navigator>);
-}
-
 const HomeStackScreen = () => {
   return (
     <HomeStack.Navigator>
-        <HomeStack.Screen name="ProductList" component={Home} options={{title: "Product List"}} />
-        <HomeStack.Screen name="Productdetails" component={Productdetails} />  
+        <HomeStack.Screen name="ProductList" component={Home} options={{headerTitle: (props) => <Header {...props} />}}/>
+        <HomeStack.Screen name="Productdetails" component={Productdetails} options={{headerTitle: (props) => <Header {...props} />}}/>  
     </HomeStack.Navigator>);
 }
 
@@ -42,30 +38,48 @@ const HomeStackScreen = () => {
 const HomeTabScreen= () => {
  return(
     <HomeTabs.Navigator initialRouteName={"Home"}>
-      <HomeTabs.Screen name="Profile" component={Profile} options={{headerShown: false}}/>
-      <HomeTabs.Screen name="Home" component={HomeStackScreen} options={{headerShown: false}}/>
-      <HomeTabs.Screen name="Cart" component={cart} />
+     <HomeTabs.Screen name="Profile" component={Profile} 
+       options={{
+         tabBarIcon: ({ }) => {
+           return (
+            <Icon name="user" color={"#0fadad"} size={25} style={{paddingHorizontal: 5}}/>
+           );
+         },
+         headerTitle: (props) => <Header {...props} />
+       }}
+      />
+     <HomeTabs.Screen name="Home" component={HomeStackScreen} options={{
+       tabBarIcon: ({ }) => {
+         return (
+           <Icon name="home" color={"#0fadad"} size={25} style={{ paddingHorizontal: 5 }} />
+         );
+       }, headerShown: false}}/>
+     <HomeTabs.Screen name="Cart" component={cart}
+      options={{
+         tabBarIcon: ({ }) => {
+           return (
+            <Icon name="cart-arrow-down" color={"#0fadad"} size={25} style={{paddingHorizontal: 5}}/>
+           );
+        },
+        headerTitle: (props) => <Header {...props} />}}
+       />
     </HomeTabs.Navigator>
  );
 }
 
 
 const App = () => {
-  // const [isLoading, setIsLoading] = useState(true);
-  // const [userToken, setUserToken] = useState(null);
 
-   const initialLoginState = {
+  const initialLoginState = {
       isLoading: true,
       userName: null,
       userToken: null,
     }
 
-
   const [loginState, dispatch] = useReducer(loginReducer, initialLoginState);
   const authContext = useMemo(() => ({
     signIn:async(userName, password) => {
-      // setUserToken('fgkg');
-      // setIsLoading(false);
+      
       let userToken = null;
       
       if(userName == "Sania" && password == 'pass'){
@@ -121,8 +135,14 @@ const App = () => {
             <loginStack.Screen name="Login" component={Login} options={{ headerShown: false }} />
           </loginStack.Navigator>
           ):(
-            <Drawer.Navigator>
-              <Drawer.Screen name="App" component={HomeTabScreen} />
+            <Drawer.Navigator drawerContent={(props) => <DrawerContent {...props} />}
+              screenOptions={{
+                  drawerStyle: {
+                  backgroundColor: '#c6cbef',
+                  width: 200,
+                },
+              }}>
+              <Drawer.Screen name="App" component={HomeTabScreen} options={{ headerShown: false }} />
             </Drawer.Navigator>
           )
       }

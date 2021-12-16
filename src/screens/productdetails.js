@@ -1,17 +1,13 @@
 import React from 'react'
-import { View, Text, ScrollView, Image, Button, StyleSheet } from 'react-native'
+import { View, Text, ScrollView, Image, StyleSheet } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Products from './Products'
-import { useState, useReducer } from 'react'
-import {useSelector, useDispatch } from 'react-redux';
-import CartReducer from '../reducers/cartreducer'
-
-
+import { useState } from 'react'
+import {useDispatch } from 'react-redux';
 
 function Productdetails({route, navigation}) {
     
     const dispatch = useDispatch();
-    const initialState = [];
     const [Qty, setQty] = useState(0);
     let {itemID} = route.params;
     const {id, image, title, price, description} = Products[itemID-1];
@@ -29,14 +25,10 @@ function Productdetails({route, navigation}) {
         if(Qty === 0){
             alert("Cannot Add to cart");
         }
-        else{
+        else {
+            dispatch({ type: "ADD_TO_CART", payload: { id: id, Qty: Qty } });
             alert("Successfully added to Cart");
-            // cartArrayItem["id"]= itemID;
-            // cartArrayItem["quantity"]= Qty;
-            // setCartArray([...cartArray, cartArrayItem]);
-            //dispatch({ type: 'ADD_TO_CART', payload: { id: id, Qty: Qty } });
             navigation.push("ProductList");
-           // console.log(cartItems[0].price);
         }
     }
     return (
@@ -63,8 +55,7 @@ function Productdetails({route, navigation}) {
                 </View>
                  <Text style={Styles.desc}> Quantity: {Qty}</Text>
                 <Text style={[Styles.button, Styles.btn]}
-                    onPress={() => dispatch({ type: "ADD_TO_CART", payload: { id: id, Qty: Qty } },
-                    navigation.push("ProductList"))}>ADD TO CART</Text>
+                    onPress={() => addToCart(id)}>ADD TO CART</Text>
                 <Text style={Styles.desc}>{description}</Text>
             </View>
             

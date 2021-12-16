@@ -8,7 +8,6 @@ const CartReducer = (state = initialState, action) => {
         case 'ADD_TO_CART':
             const { id, Qty } = action.payload;
             const item = Products.find((elem) => elem.id === id);
-            console.log(item.title);
             return {
                 ...state,
                 list: [

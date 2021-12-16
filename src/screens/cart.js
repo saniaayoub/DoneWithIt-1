@@ -7,17 +7,24 @@ const cart = ({ navigation }) => {
     let list = useSelector((state) => state.CartReducer.list);
     const [total, setTotal] = useState(0.00);
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        countTotal();
+    }, [list]);
+
     const orderDone = () => {
         dispatch({ type: "CLEAR_CART" });
         setTotal(0.00);
         alert("your order has been placed \n Thank you for shopping");
-    }
+    };
 
-    useEffect(() => {
-        list.forEach(element => {
-            setTotal(total + (element.price * element.Qty));
-        });
-    }, list)
+    const countTotal = () => {
+        setTotal(0.00);
+        list.forEach((elem) => {
+            setTotal(total + (elem.price * elem.Qty))
+        })
+    }; 
+
     return (
         <ScrollView>
         
@@ -39,7 +46,7 @@ const cart = ({ navigation }) => {
             })}
                 
                  <View  style={Styles.total}>
-                <TextInput value={total}/>
+                 <Text style={Styles.text}> Total: {total} </Text>
                     <Text style={Styles.text}> Amount </Text>
                 </View>
 

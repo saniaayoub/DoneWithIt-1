@@ -3,7 +3,7 @@ import { Text, StyleSheet, View, ScrollView, Image, TextInput, TouchableOpacity 
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState, useContext } from 'react';
-import { AuthContext } from './context';
+
 
 const Profile = () => {
     const [userName, setUserName] = useState("");
@@ -12,8 +12,6 @@ const Profile = () => {
     const [phNum, setPhNum] = useState("");
     const [city, setCity] = useState("");
     const [address, setAddress] = useState("");
-
-    const { signOut } = useContext(AuthContext);
 
     const saveInfo = () => {
         if(name && email && phNum && city && address){
@@ -34,9 +32,7 @@ const Profile = () => {
             alert("Please fill all fields");
         }
     }
-    const signOutHandle = () => {
-      signOut();
-    }
+    
 
     const getInfo = () => {
         AsyncStorage.getItem("name1").then((value) => {setUserName(value)});
@@ -56,7 +52,12 @@ const Profile = () => {
                     <TouchableOpacity  style={styles.upload}>
                             <Text style={styles.uploadText}> + </Text>
                     </TouchableOpacity>
-                    <Text style={styles.title}>{userName}</Text>
+                {userName ?
+                    (
+                        <Text style={styles.title}>{userName}</Text>
+                    ) : (
+                        <Text style={styles.title}>{ "Sania"}</Text>
+                    )}
                     <View style={styles.container}>
                         <View style={styles.sectionStyle}>
                             <Icon
@@ -123,9 +124,7 @@ const Profile = () => {
                          <TouchableOpacity  style={styles.button}>
                             <Text style={styles.text} onPress= {() => saveInfo()}> SAVE</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={styles.button}>
-                            <Text style={styles.text} onPress={() => signOutHandle()}> SIGN OUT</Text>
-                        </TouchableOpacity>
+                        
                     </View>
                 </View>
             </ScrollView>

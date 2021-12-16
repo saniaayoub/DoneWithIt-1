@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet, TextInput, TouchableOpacity} from 'react-native';
 import { useState , useContext} from 'react';
-import { AuthContext } from './context';
+import { AuthContext } from '../Components/context';
 
 const Login = ({navigation}) => {
     // const [name, setName] = useState("");
@@ -25,14 +25,6 @@ const Login = ({navigation}) => {
         })
     }
     const loginHandle = (userName, password) => {
-        // if(data.username && data.password){
-        //     AsyncStorage.setItem("user", data);
-        //     setData({username:'', password: ''})
-        //     navigation.push("App");
-        // }
-        // else{
-        //     alert("Please fill data");
-        // }
         signIn(userName, password);
     }
     return(
