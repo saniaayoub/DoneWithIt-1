@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, Text, ScrollView, Image, StyleSheet } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import Products from './Products'
+import Products from '../Components/Products'
 import { useState } from 'react'
 import {useDispatch } from 'react-redux';
 
@@ -28,7 +28,7 @@ function Productdetails({route, navigation}) {
         else {
             dispatch({ type: "ADD_TO_CART", payload: { id: id, Qty: Qty } });
             alert("Successfully added to Cart");
-            navigation.push("ProductList");
+            navigation.goBack();
         }
     }
     return (

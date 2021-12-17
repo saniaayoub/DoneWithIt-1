@@ -13,9 +13,15 @@ const cart = ({ navigation }) => {
     }, [list]);
 
     const orderDone = () => {
-        dispatch({ type: "CLEAR_CART" });
+        if (total) {
+            dispatch({ type: "CLEAR_CART" });
         setTotal(0.00);
         alert("your order has been placed \n Thank you for shopping");
+        navigation.navigate("Home");
+        }
+        else {
+            alert("cart is empty")
+        }
     };
 
     const countTotal = () => {
@@ -26,8 +32,9 @@ const cart = ({ navigation }) => {
     }; 
 
     return (
-        <ScrollView>
         
+        <ScrollView>
+            
             {list.map((elem) => 
             {
                 return (

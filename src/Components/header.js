@@ -1,19 +1,36 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { Button, StyleSheet, Text, View } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
-const header = () => {
+
+const Header = ({route, navigation }) =>{
     return (
-        <View style= {styles.header}>
-            {/* {menu icon goes here}  */}
-            <View>
-                <Text style= {styles.headerText}> App</Text>
-            </View>
-        </View>   
-    )
+        { 
+            title: route.name,
+            headerTitleAlign: 'center',
+            headerTintColor: "black",
+            headerTitleStyle: {
+                fontWeight: 'bold',
+                fontSize: 18,
+        },
+                headerLeft: () => {
+                    return (
+                        
+                        <Icon
+                            name="bars" color={"#0fadad"} size={25} style={{ paddingHorizontal: 5 }}
+                            onPress={() => navigation.openDrawer()}
+                        /> )
+                },
+            headerStyle: {
+                backgroundColor: "#DCDCDC",
+                shadowColor: "transparent"
+            }
+        }
+    )   
+   
 }
 
-export default header
+export default Header;
 
 const styles = StyleSheet.create({
     header: {

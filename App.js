@@ -12,11 +12,11 @@ import Home from './src/screens/Home';
 import cart from './src/screens/cart';
 import Productdetails from './src/screens/productdetails';
 import DrawerContent from './src/screens/drawercontent';
-import Header from './src/Components/header';
 import { useEffect, useState,useContext, useMemo, useReducer} from 'react';
 import { AuthContext } from './src/Components/context';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import loginReducer from './src/reducers/loginreducer'
+import Header from './src/Components/header'
 
 const loginStack = createStackNavigator();
 
@@ -26,18 +26,32 @@ const HomeStack = createStackNavigator();
 
 const Drawer = createDrawerNavigator();
 
+// const CartStack = createStackNavigator();
+
+// const cartStackScreen = () => {
+//   <CartStack.Navigator>
+
+//   </CartStack.Navigator>
+// }
+// const options = {
+//   title: "Home",
+//   headerTintColor: "black",
+//   headerStyle: {
+//     backgroundColor: "#c6cbef",
+//   }
+// }
 const HomeStackScreen = () => {
   return (
-    <HomeStack.Navigator>
-        <HomeStack.Screen name="ProductList" component={Home} options={{headerTitle: (props) => <Header {...props} />}}/>
-        <HomeStack.Screen name="Productdetails" component={Productdetails} options={{headerTitle: (props) => <Header {...props} />}}/>  
+    <HomeStack.Navigator initialRouteName={"ProductList"} screenOptions={(route, navigation) => Header(route, navigation)}>
+      <HomeStack.Screen name="Product List" component={Home}  />
+        <HomeStack.Screen name="Product Details" component={Productdetails}/>  
     </HomeStack.Navigator>);
 }
 
 
 const HomeTabScreen= () => {
  return(
-    <HomeTabs.Navigator initialRouteName={"Home"}>
+    <HomeTabs.Navigator initialRouteName={"Home"} screenOptions={(route, navigation) => Header(route, navigation)}>
      <HomeTabs.Screen name="Profile" component={Profile} 
        options={{
          tabBarIcon: ({ }) => {
@@ -45,8 +59,7 @@ const HomeTabScreen= () => {
             <Icon name="user" color={"#0fadad"} size={25} style={{paddingHorizontal: 5}}/>
            );
          },
-         headerTitle: (props) => <Header {...props} />
-       }}
+         }}
       />
      <HomeTabs.Screen name="Home" component={HomeStackScreen} options={{
        tabBarIcon: ({ }) => {
@@ -55,13 +68,13 @@ const HomeTabScreen= () => {
          );
        }, headerShown: false}}/>
      <HomeTabs.Screen name="Cart" component={cart}
-      options={{
+       options={{
          tabBarIcon: ({ }) => {
            return (
-            <Icon name="cart-arrow-down" color={"#0fadad"} size={25} style={{paddingHorizontal: 5}}/>
+             <Icon name="cart-arrow-down" color={"#0fadad"} size={25} style={{ paddingHorizontal: 5 }} />
            );
-        },
-        headerTitle: (props) => <Header {...props} />}}
+         },
+       }}
        />
     </HomeTabs.Navigator>
  );

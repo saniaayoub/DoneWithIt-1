@@ -1,4 +1,4 @@
-import Products from "../screens/Products";
+import Products from "../Components/Products";
 
 const initialState = {
     list: []

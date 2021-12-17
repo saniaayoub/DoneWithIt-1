@@ -19,9 +19,12 @@ const DrawerContent = (props) => {
                     {
                     //tab 
                     }
-                    <DrawerBtn currentTab={currentTab} setCurrentTab={setCurrentTab} title={"Profile"} icon={"user"} navigation={props.navigation}/>
-                    <DrawerBtn currentTab={currentTab} setCurrentTab={setCurrentTab} title={"Home"} icon={"home"} navigation={props.navigation}/>
-                    <DrawerBtn currentTab={currentTab} setCurrentTab={setCurrentTab} title={"Cart"} icon={"cart-arrow-down"} navigation={props.navigation}/>
+                    <DrawerBtn currentTab={currentTab} setCurrentTab={setCurrentTab}
+                        title={"Profile"} icon={"user"} navigation={props.navigation} />
+                    <DrawerBtn currentTab={currentTab} setCurrentTab={setCurrentTab}
+                        title={"Home"} icon={"home"} navigation={props.navigation} />
+                    <DrawerBtn currentTab={currentTab} setCurrentTab={setCurrentTab}
+                        title={"Cart"} icon={"cart-arrow-down"} navigation={props.navigation} />
                 </View>
 
                 <View>

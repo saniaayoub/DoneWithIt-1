@@ -1,12 +1,12 @@
 import React from 'react';
 import {View, Text, StyleSheet, TextInput, SafeAreaView, FlatList, TouchableOpacity, Image} from 'react-native';
-import Products from './Products';
+import Products from '../Components/Products';
 
 
 const Home = ({navigation}) => {
     const renderItem = ({item}) => {
         return (
-            <TouchableOpacity style={[styles.card, styles.cardShadow]} onPress={()=> navigation.push("Productdetails", {itemID: item.id})}>
+            <TouchableOpacity style={[styles.card, styles.cardShadow]} onPress={()=> navigation.push("Product Details", {itemID: item.id})}>
                 <Image 
                     source={item.image}
                     style={styles.image}
@@ -34,7 +34,6 @@ const Home = ({navigation}) => {
         </SafeAreaView>
     )
 }
-
 export default Home;
 const styles = StyleSheet.create({
     grid: {
