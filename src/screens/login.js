@@ -9,32 +9,11 @@ import {
 import {useState} from 'react';
 import {Auth} from '../services';
 
-// import {AuthContext} from '../Components/context';
 
 const Login = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  //   const [data, setData] = useState({
-  //     username: '',
-  //     password: '',
-  //   });
-  //   const {signIn} = useContext(AuthContext);
-
-  //   const handleTextInputChange = val => {
-  //     setData({
-  //       ...data,
-  //       username: val,
-  //     });
-  //   };
-  //   const handlePasswordInputChange = val => {
-  //     setData({
-  //       ...data,
-  //       password: val,
-  //     });
-  //   };
-  //   const loginHandle = (userName, password) => {
-  //     signIn(userName, password);
-  //   };
+  
   return (
     <View style={styles.container}>
       <View style={styles.formWrapper}>
